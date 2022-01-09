@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "@discordjs/rest": "^0.2.0-canary.0",
+    "@discordjs/voice": "^0.7.5",
+    "ascii-table": "^0.0.9",
+    "canvas": "^2.8.0",
+    "discord-ytdl-core": "^5.0.4",
+    "discord.js": "^13.5.1",
+    "glob": "^7.2.0",
+    "got": "^11.8.3",
+    "libsodium-wrappers": "^0.7.9",
+    "ytdl-core": "^4.9.2"
+  }
+}
