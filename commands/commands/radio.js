@@ -33,7 +33,6 @@ module.exports = {
         }
     ],
     async run(client, interaction, message) {
-
         let connection = voice.joinVoiceChannel({
             channelId: interaction.member.voice.channel.id,
             guildId: interaction.guild.id,
@@ -48,6 +47,7 @@ module.exports = {
         const player = voice.createAudioPlayer()
         switch (jpop) {
             case "play":
+
                 if (!interaction.member.voice.channel) return interaction.reply("You're not in a voice channel?");
 
                 let stream = got.stream("https://listen.moe/stream");
@@ -101,7 +101,7 @@ module.exports = {
 
                             mess.edit({ embeds: [jpopstop] })
                             setInterval(() => {
-                                interaction.deleteReply();
+                                mess.delete();
                             }, 5000)
 
                             ws.close();
@@ -158,6 +158,7 @@ module.exports = {
             case "stop":
                 connection.destroy();
                 isWsUpdated = false;
+                interaction.reply({ content: "Stoped", ephemeral: true })
                 break;
         };
         if (custom) {
