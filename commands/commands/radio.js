@@ -33,6 +33,11 @@ module.exports = {
         }
     ],
     async run(client, interaction, message) {
+        const notinvoice = new MessageEmbed()
+            .setTitle("You are not in voice channel")
+            .setColor(COLOR)
+        if (!interaction.member.voice.channel) return interaction.reply({ embeds: [notinvoice], ephemeral: true });
+
         let connection = voice.joinVoiceChannel({
             channelId: interaction.member.voice.channel.id,
             guildId: interaction.guild.id,
@@ -93,6 +98,7 @@ module.exports = {
                     };
 
                     ws.onmessage = message => {
+                        // console.log(interaction.channel.messages.fetch(mess.id))
                         if (!isWsUpdated) {
 
                             const jpopstop = new MessageEmbed()
@@ -140,7 +146,8 @@ module.exports = {
                             const channelId = connection.joinConfig.channelId;
                             const guild = interaction.guild;
                             const channel = guild.channels.cache.get(channelId)
-                            if (channel.members.size < 2) {
+                            if (channel.members.size < 2 && interaction.guild.channels.cache.some(channel => channel.type === "GUILD_VOICE" && channel.members.has(client.user.id))) {
+                                // console.log("SUCCESFUL")
                                 setTimeout(() => {
                                     connection.destroy();
                                     isWsUpdated = false;
